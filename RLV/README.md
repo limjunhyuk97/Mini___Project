@@ -11,4 +11,6 @@
   
 ### 실행 화면
 
+**RLC.exe**   
+
 <img src="https://user-images.githubusercontent.com/59442344/117539879-7cecea80-b047-11eb-91ea-225e051cf9aa.png" height="700" weight="300">
