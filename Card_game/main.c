@@ -1,3 +1,6 @@
+// 게임의 실행을 위해서는 cardHoldingNum 배열에 각 참가자 A, B, C, D에게 몇개의 카드를 부여할 지에 대한 수가 주어져야 합니다. (13 3개, 14 1개를 넣어야 )
+// 예) int cardHoldingNum[4] = { 13, 14, 13, 13};
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -16,7 +19,7 @@ void PrintPlayerOrder(int* playerOrder);
 int main(void){
     int cardStack[53] = { 0 };
     int A[14] = { 0 }, B[14] = { 0 }, C[14] = { 0 }, D[14] = { 0 };
-    int cardHoldingNum[4] = { 13, 13, 13, 14 };
+    int cardHoldingNum[4] = { 0, 0, 0, 0};
     int playerOrder[4];
        
 
@@ -168,7 +171,7 @@ void Game(int* A, int* B, int* C, int* D, int* cardNum, int* playerOrder){
     int first = rand() % 4;
     
     // turn : 순서 , winner : 순위 겸 게임 순서에서 제외를 위한 배열, game_done : 4가 되면 종료, player : 각 player 이름 매칭
-    int turn[4], winner[4] = {0, 0, 0, 0}, game_done = 0;
+    int turn[4], game_done = 0;
     char player_name[4] = {'A', 'B', 'C', 'D'};
     int* player_pointer[4] = { A, B, C, D};
     
@@ -185,30 +188,30 @@ void Game(int* A, int* B, int* C, int* D, int* cardNum, int* playerOrder){
         // next : cur가 뺏어올 다음 녀석
         
         if (cardNum[cur] == 0)
-            for(cur = turn[cur]; winner[cur]; cur = turn[cur]);
+            for(cur = turn[cur]; playerOrder[cur]; cur = turn[cur]);
         int next = 0;
-        for(next = turn[cur]; winner[next]; next = turn[next]);
+        for(next = turn[cur]; playerOrder[next]; next = turn[next]);
         
         // 카드 가져오기 + 뻇기기 + 뻇은 거 출력
         int pick = rand() % cardNum[next];
         int picked_num = player_pointer[next][pick];
         
-        // 뻇고 뺴앗기기
+        // 뻇고 뺴앗기고 제거하기
         ArrayPush(player_pointer[cur], &cardNum[cur], player_pointer[next][pick]);
         RemovePairedCard(player_pointer[cur], &cardNum[cur]);
         ArrayPop(player_pointer[next], &cardNum[next], pick);
-        printf("[ Step %d ] \t %c picked %d from %c\n", step++, player_name[cur], picked_num, player_name[turn[cur]]);
+        printf("[ Step %d ] \t %c picked %d from %c\n", step++, player_name[cur], picked_num, player_name[next]);
         
         // 전체 카드 상황 출력하고
         PrintAllMemberCard(A, B, C, D, cardNum);
         
-        // 카드 갯수가 0이 된 친구들은 순위권에서 배제한다.
+        // 카드 갯수가 0이 된 친구들은 순위권에서 배제하고, 게임에서 배제한다.
         if(cardNum[cur] == 0){
-            winner[cur] = score;
+            playerOrder[cur] = score;
             ++game_done;
         }
         if(cardNum[next] == 0){
-            winner[next] = score;
+            playerOrder[next] = score;
             ++game_done;
         }
         if(cardNum[next] == 0 || cardNum[cur] == 0 ) score++;
@@ -220,10 +223,6 @@ void Game(int* A, int* B, int* C, int* D, int* cardNum, int* playerOrder){
         }
         
         cur = next;
-    }
-    
-    for(int i=0; i<4; ++i){
-        playerOrder[i] = winner[i];
     }
     
 }
