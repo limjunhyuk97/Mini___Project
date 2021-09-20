@@ -202,7 +202,7 @@ void Game(int* A, int* B, int* C, int* D, int* cardNum, int* playerOrder){
         // 전체 카드 상황 출력하고
         PrintAllMemberCard(A, B, C, D, cardNum);
         
-        // 일단 짜져있어봐
+        // 카드 갯수가 0이 된 친구들은 순위권에서 배제한다.
         if(cardNum[cur] == 0){
             winner[cur] = score;
             ++game_done;
