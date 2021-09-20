@@ -1,6 +1,5 @@
 // 게임의 실행을 위해서는 cardHoldingNum 배열에 각 참가자 A, B, C, D에게 몇개의 카드를 부여할 지에 대한 수가 주어져야 합니다. (13 3개, 14 1개를 넣어야 )
 // 예) int cardHoldingNum[4] = { 13, 14, 13, 13};
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -81,44 +80,16 @@ void CardDistribute(int* A, int* B, int* C, int* D, int* cardStack, int* cardNum
     for(int i=0; i<53; ++i)
         pick[i] = 0;
     
-    // A 넣기
-    for(int i = 0; i < cardNum[0]; ++i){
-        int randnum = rand() % 53;
-        if(!pick[randnum]){
-            pick[randnum] = 1; A[i] = cardStack[randnum];
-        }
-        else{
-            i -= 1;
-        }
-    }
-    // B 넣기
-    for(int i = 0; i < cardNum[1]; ++i){
-        int randnum = rand() % 53;
-        if(!pick[randnum]){
-            pick[randnum] = 1; B[i] = cardStack[randnum];
-        }
-        else{
-            i -= 1;
-        }
-    }
-    // C 넣기
-    for(int i = 0; i < cardNum[2]; ++i){
-        int randnum = rand() % 53;
-        if(!pick[randnum]){
-            pick[randnum] = 1; C[i] = cardStack[randnum];
-        }
-        else{
-            i -= 1;
-        }
-    }
-    // D 넣기
-    for(int i = 0; i < cardNum[3]; ++i){
-        int randnum = rand() % 53;
-        if(!pick[randnum]){
-            pick[randnum] = 1; D[i] = cardStack[randnum];
-        }
-        else{
-            i -= 1;
+    // 카드 넣기
+    int* players[4] = {A, B, C, D};
+    
+    for(int i=0; i<4; ++i){
+        for(int j=0; j<cardNum[i]; ++j){
+            int randnum = rand() % 53;
+            if(!pick[randnum]){
+                pick[randnum] = 1; players[i][j] = cardStack[randnum];
+            }
+            else j -= 1;
         }
     }
     
