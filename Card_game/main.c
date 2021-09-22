@@ -100,7 +100,6 @@ void ArrayPop(int* arr, int* arrLength, int poplndex){
     for(int i= poplndex; i <*arrLength - 1; ++i){
         arr[i] = arr[i+1];
     }
-    arr = (int *)malloc(sizeof(int) * (*arrLength - 1));
     
     *arrLength -= 1;
 }
@@ -109,7 +108,6 @@ void ArrayPush(int* arr, int* arrLength, int num){
     
     *arrLength += 1;
     arr[*arrLength - 1] = num;
-    arr = (int *)malloc(sizeof(int) * (*arrLength));
     
 }
 
