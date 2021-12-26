@@ -1,6 +1,7 @@
-# 연세대 메카트로닉스 과제
+# 00대 메카트로닉스 과제
 
 ## 카드 게임을 위한 9개의 함수를 구현한다.
+## 친구 과제 도와줌..;
 
 <img width="532" alt="1" src="https://user-images.githubusercontent.com/59442344/133949928-dc162d50-0c0e-4e04-bf0c-219d78e95308.png">
 <img width="532" alt="2" src="https://user-images.githubusercontent.com/59442344/133949934-e3dfdf50-443a-4ed7-bfd2-6ac9cd622181.png">
